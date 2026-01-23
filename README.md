@@ -95,6 +95,12 @@ cases. If this is too strict for your project, adjust `tsconfig.json`.
 
 ______________________________________________________________________
 
+## Licence
+
+ISC — see [LICENSE](LICENSE) for details.
+
+______________________________________________________________________
+
 ## Contributing
 
 Contributions welcome! Please open an issue or pull request.
