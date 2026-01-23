@@ -1,4 +1,4 @@
-.PHONY: help all clean build lint fmt check-fmt typecheck test
+.PHONY: help all clean build lint fmt check-fmt typecheck test markdownlint
 
 .DEFAULT_GOAL := all
 
@@ -27,6 +27,9 @@ typecheck: build ## Run type checking
 
 test: build ## Run tests
 	bun test
+
+markdownlint: ## Lint Markdown files
+	bunx markdownlint-cli2 '**/*.md'
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?##' $(MAKEFILE_LIST) | \
