@@ -17,7 +17,7 @@ fmt: build ## Format sources
 	bun fmt
 
 check-fmt: build ## Verify formatting
-	bunx biome format --write=false src tests
+	bunx biome check --formatter-enabled=true --linter-enabled=false src tests
 
 lint: build ## Run linters
 	bun lint

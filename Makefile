@@ -1,4 +1,4 @@
-.PHONY: check-fmt lint typecheck test test-all fmt
+.PHONY: check-fmt lint typecheck test help
 
 # Check formatting without making changes
 check-fmt:
@@ -12,9 +12,9 @@ lint:
 typecheck:
 	@echo "No source files to typecheck in template root"
 
-# Run tests
-test:
-	@echo "No tests in template root - generate a project to test"
+test: ## Run template tests
+	uvx --with pytest-copier pytest tests/
 
-# Run all checks
-test-all: check-fmt lint typecheck test
+help: ## Show available targets
+	@grep -E '^[a-zA-Z_-]+:.*?##' $(MAKEFILE_LIST) | \
+	awk 'BEGIN {FS=":.*?## "; printf "Available targets:\n"} {printf "  %-15s %s\n", $$1, $$2}'
