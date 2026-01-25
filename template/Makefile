@@ -20,10 +20,10 @@ check-fmt: build ## Verify formatting
 	bunx biome check --formatter-enabled=true --linter-enabled=false src tests
 
 lint: build ## Run linters
-	bun lint
+	bun run lint
 
 typecheck: build ## Run type checking
-	bun check:types
+	bun run check:types
 
 test: build ## Run tests
 	bun test
