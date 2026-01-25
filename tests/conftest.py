@@ -16,11 +16,22 @@ def copier_template_paths() -> list[str]:
     """Specify which paths to copy to the test template directory.
 
     This prevents copying .git and other non-template files.
+
+    Returns
+    -------
+    list[str]
+        List of paths to include when copying the template for testing.
     """
     return ["copier.yml", "template"]
 
 
 @pytest.fixture(scope="session")
 def copier_template_root() -> Path:
-    """Root directory of the copier template."""
+    """Return the root directory of the Copier template.
+
+    Returns
+    -------
+    Path
+        Absolute path to the template root directory.
+    """
     return Path(__file__).parents[1]

@@ -41,7 +41,7 @@ Copier will prompt for:
 | `project_name`        | Kebab-case name (e.g. `my-project`)  |
 | `project_title`       | Human-readable title                 |
 | `project_description` | Short project description            |
-| `github_username`     | Your GitHub username or organization |
+| `github_username`     | GitHub username or organization      |
 
 ### Run the tests
 
@@ -91,7 +91,7 @@ The template enables TypeScript's strictest settings:
 - `useUnknownInCatchVariables`
 
 These catch more bugs at compile time but require explicit handling of edge
-cases. If this is too strict for your project, adjust `tsconfig.json`.
+cases. If this is too strict for a given project, adjust `tsconfig.json`.
 
 ______________________________________________________________________
 
