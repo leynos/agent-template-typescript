@@ -2,6 +2,19 @@
 
 Provides fixtures that configure pytest-copier to locate and copy only the
 relevant template files (copier.yml and template directory) during test runs.
+
+Examples
+--------
+These fixtures are automatically discovered by pytest-copier. Tests can use
+the ``copier`` fixture to generate projects::
+
+    def test_template_renders(tmp_path: Path, copier: CopierFixture) -> None:
+        project = copier.copy(
+            tmp_path,
+            project_name="example",
+            project_title="Example",
+        )
+        assert (project / "package.json").exists()
 """
 
 from __future__ import annotations

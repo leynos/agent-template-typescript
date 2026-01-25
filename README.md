@@ -25,7 +25,6 @@ ______________________________________________________________________
 ### Prerequisites
 
 - [Copier](https://copier.readthedocs.io/) 9.0+
-- [pnpm](https://pnpm.io/)
 - [Bun](https://bun.sh/)
 
 ### Generate a project
