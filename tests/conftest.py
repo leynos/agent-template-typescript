@@ -1,3 +1,9 @@
+"""Pytest fixtures for Copier template testing.
+
+Provides fixtures that configure pytest-copier to locate and copy only the
+relevant template files (copier.yml and template directory) during test runs.
+"""
+
 from __future__ import annotations
 
 from pathlib import Path

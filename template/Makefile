@@ -5,7 +5,7 @@
 all: build check-fmt lint typecheck test
 
 node_modules: package.json
-	pnpm install
+	bun install
 	@touch node_modules
 
 build: node_modules ## Install dependencies
@@ -14,7 +14,7 @@ clean: ## Remove build artifacts
 	rm -rf dist node_modules .bun
 
 fmt: build ## Format sources
-	bun fmt
+	bun run fmt
 
 check-fmt: build ## Verify formatting
 	bunx biome check --formatter-enabled=true --linter-enabled=false src tests

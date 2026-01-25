@@ -41,7 +41,7 @@ Copier will prompt for:
 | `project_name`        | Kebab-case name (e.g. `my-project`)  |
 | `project_title`       | Human-readable title                 |
 | `project_description` | Short project description            |
-| `github_username`     | Your GitHub username or organisation |
+| `github_username`     | Your GitHub username or organization |
 
 ### Run the tests
 
@@ -54,7 +54,7 @@ ______________________________________________________________________
 
 ## What's included
 
-```
+```text
 my-project/
 ├── src/
 │   └── index.ts         # Entry point
@@ -97,7 +97,7 @@ ______________________________________________________________________
 
 ## Licence
 
-ISC — see [LICENSE](LICENSE) for details.
+ISC — see [LICENCE](LICENSE) for details.
 
 ______________________________________________________________________
 

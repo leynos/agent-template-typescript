@@ -30,4 +30,4 @@ _exclude:
   - "**/__pycache__"
 
 _tasks:
-  - "pnpm install"
+  - "bun install"

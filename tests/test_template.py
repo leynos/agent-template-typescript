@@ -1,11 +1,16 @@
+"""Template rendering and validation tests.
+
+Validates that the Copier template renders correctly with default values
+and that the generated project passes build, typecheck, lint, test, and
+format-check workflows.
+"""
+
 from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from pytest_copier.plugin import CopierFixture
-
-
-TEMPLATE_PATH = Path(__file__).parents[1]
 
 
 def test_template_renders(tmp_path: Path, copier: CopierFixture) -> None:
@@ -17,72 +22,42 @@ def test_template_renders(tmp_path: Path, copier: CopierFixture) -> None:
         project_description="A test project",
         github_username="testuser",
     )
-    assert (project / "package.json").exists()
-    assert (project / "tsconfig.json").exists()
-    assert (project / "biome.jsonc").exists()
-    assert (project / "Makefile").exists()
-    assert (project / "src" / "index.ts").exists()
-    assert (project / "tests" / "index.test.ts").exists()
+    assert (project / "package.json").exists(), "package.json should exist"
+    assert (project / "tsconfig.json").exists(), "tsconfig.json should exist"
+    assert (project / "biome.jsonc").exists(), "biome.jsonc should exist"
+    assert (project / "Makefile").exists(), "Makefile should exist"
+    assert (project / "src" / "index.ts").exists(), "src/index.ts should exist"
+    assert (
+        project / "tests" / "index.test.ts"
+    ).exists(), "tests/index.test.ts should exist"
 
 
-def test_template_builds(tmp_path: Path, copier: CopierFixture) -> None:
-    """Generated project installs dependencies."""
+@pytest.mark.parametrize(
+    ("project_name", "make_target"),
+    [
+        ("build-example", "build"),
+        ("typecheck-example", "typecheck"),
+        ("lint-example", "lint"),
+        ("test-example", "test"),
+        ("format-example", "check-fmt"),
+    ],
+    ids=["build", "typecheck", "lint", "test", "check-fmt"],
+)
+def test_template_make_target(
+    tmp_path: Path,
+    copier: CopierFixture,
+    project_name: str,
+    make_target: str,
+) -> None:
+    """Generated project passes make target."""
     project = copier.copy(
         tmp_path,
-        project_name="build-example",
-        project_title="Build Example",
+        project_name=project_name,
+        project_title=project_name.replace("-", " ").title(),
         project_description="A test project",
         github_username="testuser",
     )
-    project.run("make build")
-
-
-def test_template_typechecks(tmp_path: Path, copier: CopierFixture) -> None:
-    """Generated project passes type checking."""
-    project = copier.copy(
-        tmp_path,
-        project_name="typecheck-example",
-        project_title="Typecheck Example",
-        project_description="A test project",
-        github_username="testuser",
-    )
-    project.run("make typecheck")
-
-
-def test_template_lints(tmp_path: Path, copier: CopierFixture) -> None:
-    """Generated project passes linting."""
-    project = copier.copy(
-        tmp_path,
-        project_name="lint-example",
-        project_title="Lint Example",
-        project_description="A test project",
-        github_username="testuser",
-    )
-    project.run("make lint")
-
-
-def test_template_tests(tmp_path: Path, copier: CopierFixture) -> None:
-    """Generated project tests pass."""
-    project = copier.copy(
-        tmp_path,
-        project_name="test-example",
-        project_title="Test Example",
-        project_description="A test project",
-        github_username="testuser",
-    )
-    project.run("make test")
-
-
-def test_template_format_check(tmp_path: Path, copier: CopierFixture) -> None:
-    """Generated project passes format checking."""
-    project = copier.copy(
-        tmp_path,
-        project_name="format-example",
-        project_title="Format Example",
-        project_description="A test project",
-        github_username="testuser",
-    )
-    project.run("make check-fmt")
+    project.run(f"make {make_target}")
 
 
 def test_package_json_has_correct_name(tmp_path: Path, copier: CopierFixture) -> None:
@@ -95,4 +70,6 @@ def test_package_json_has_correct_name(tmp_path: Path, copier: CopierFixture) ->
         github_username="cooluser",
     )
     package_json = (project / "package.json").read_text()
-    assert '"name": "my-cool-project"' in package_json
+    assert (
+        '"name": "my-cool-project"' in package_json
+    ), "package.json should contain the correct project name"
