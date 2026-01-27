@@ -1,0 +1,33 @@
+_min_copier_version: "9.0.0"
+_subdirectory: template
+
+project_name:
+  type: str
+  help: What is your project name? (use-kebab-case)
+  validator: "{% if not project_name | regex_search('^[a-z][a-z0-9-]*$') %}Project name must be lowercase with hyphens only{% endif %}"
+
+project_title:
+  type: str
+  help: Human-readable project title
+  default: "{{ project_name | replace('-', ' ') | title }}"
+
+project_description:
+  type: str
+  help: Short description of the project
+  default: "A TypeScript project"
+
+github_username:
+  type: str
+  help: GitHub username or organisation name
+
+_exclude:
+  - "**/.DS_Store"
+  - "**/node_modules"
+  - "**/.git"
+  - "**/dist"
+  - "**/tmp"
+  - "**/*.pyc"
+  - "**/__pycache__"
+
+_tasks:
+  - "bun install"
