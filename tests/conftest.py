@@ -6,7 +6,8 @@ relevant template files (copier.yml and template directory) during test runs.
 Examples
 --------
 These fixtures are automatically discovered by pytest-copier. Tests can use
-the ``copier`` fixture to generate projects::
+the ``copier`` fixture (of type ``pytest_copier.CopierFixture``) to generate
+projects::
 
     def test_template_renders(tmp_path: Path, copier: CopierFixture) -> None:
         project = copier.copy(
