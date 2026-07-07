@@ -20,6 +20,11 @@ github_username:
   type: str
   help: GitHub username or organisation name
 
+en_gb_oxendict:
+  type: bool
+  help: Enforce en-GB Oxford ("-ize") spelling in documentation via a typos gate?
+  default: true
+
 _exclude:
   - "**/.DS_Store"
   - "**/node_modules"

@@ -3,7 +3,13 @@
 .DEFAULT_GOAL := all
 
 all: build check-fmt lint typecheck test
-
+{% if en_gb_oxendict %}
+# Single source of truth for the typos version; pin bumps happen here (and
+# in any future CI that does not call this Makefile target).
+TYPOS_VERSION ?= 1.48.0
+TYPOS = uvx typos@$(TYPOS_VERSION)
+MD_FILES_FIND = find . -type f -name '*.md' -not -path './node_modules/*' -not -path './dist/*' -print0
+{% endif %}
 node_modules: package.json
 	bun install
 	@touch node_modules
@@ -28,8 +34,13 @@ typecheck: build ## Run type checking
 test: build ## Run tests
 	bun test
 
-markdownlint: ## Lint Markdown files
+{% if en_gb_oxendict %}markdownlint: ## Lint Markdown files and enforce en-GB-oxendict spelling
 	bunx markdownlint-cli2 '**/*.md'
+	uv run scripts/generate_typos_config.py --check
+	$(MD_FILES_FIND) | xargs -0 $(TYPOS) --config typos.toml --force-exclude
+{% else %}markdownlint: ## Lint Markdown files
+	bunx markdownlint-cli2 '**/*.md'
+{% endif %}
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*##' $(MAKEFILE_LIST) | \
