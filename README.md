@@ -41,6 +41,7 @@ Copier will prompt for:
 | `project_title`       | Human-readable title                 |
 | `project_description` | Short project description            |
 | `github_username`     | GitHub username or organization      |
+| `en_gb_oxendict`      | Enforce en-GB Oxford ("-ize") spelling in documentation via a `typos` gate (default `true`) |
 
 ### Run the tests
 
@@ -55,6 +56,10 @@ ______________________________________________________________________
 
 ```text
 my-project/
+├── docs/
+│   └── spelling-gate.md # Spelling gate guidance (if enabled)
+├── scripts/
+│   └── generate_typos_config.py  # typos.toml generator (if enabled)
 ├── src/
 │   └── index.ts         # Entry point
 ├── tests/
@@ -62,8 +67,10 @@ my-project/
 │   └── index.test.ts    # Example test
 ├── biome.jsonc          # Linting and formatting
 ├── bunfig.toml          # Bun configuration
+├── Makefile             # Build, lint, and docs gates
 ├── package.json         # Scripts and dependencies
-└── tsconfig.json        # TypeScript configuration
+├── tsconfig.json        # TypeScript configuration
+└── typos.toml           # en-GB-oxendict spelling config (if enabled)
 ```
 
 ### Scripts
