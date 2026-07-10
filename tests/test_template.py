@@ -26,6 +26,14 @@ def test_template_renders(tmp_path: Path, copier: CopierFixture) -> None:
     assert (project / "tsconfig.json").exists(), "tsconfig.json should exist"
     assert (project / "biome.jsonc").exists(), "biome.jsonc should exist"
     assert (project / "Makefile").exists(), "Makefile should exist"
+    assert (project / "typos.toml").exists(), "typos.toml should exist"
+    assert (project / "typos.local.toml").exists(), "local overlay should exist"
+    assert (project / "scripts" / "generate_typos_config.py").exists(), (
+        "spelling generator should exist"
+    )
+    assert (project / ".github" / "workflows" / "ci.yml").exists(), (
+        "generated CI should enforce the public gates"
+    )
     assert (project / "src" / "index.ts").exists(), "src/index.ts should exist"
     assert (
         project / "tests" / "index.test.ts"
@@ -40,8 +48,9 @@ def test_template_renders(tmp_path: Path, copier: CopierFixture) -> None:
         ("lint-example", "lint"),
         ("test-example", "test"),
         ("format-example", "check-fmt"),
+        ("spelling-example", "spelling"),
     ],
-    ids=["build", "typecheck", "lint", "test", "check-fmt"],
+    ids=["build", "typecheck", "lint", "test", "check-fmt", "spelling"],
 )
 def test_template_make_target(
     tmp_path: Path,

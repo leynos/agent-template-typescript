@@ -103,3 +103,10 @@ ______________________________________________________________________
 ## Contributing
 
 Contributions welcome! Please open an issue or pull request.
+
+Run `make spelling` after changing Markdown or template prose. It refreshes an
+ignored local copy of the shared `leynos` en-GB-oxendict dictionary only when
+the published source is newer, regenerates the tracked `typos.toml`, and checks
+the parent and rendered Markdown sources with `typos` 1.48.0. Repository-only
+exceptions belong in `typos.local.toml`; never edit the generated configuration
+by hand.
