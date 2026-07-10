@@ -3,3 +3,7 @@ tmp/
 __pycache__/
 *.pyc
 .pytest_cache/
+*.pyc
+__pycache__/
+.typos-oxendict-base.json
+.typos-oxendict-base.toml

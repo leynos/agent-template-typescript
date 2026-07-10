@@ -6,3 +6,7 @@ dist/
 .bun-cache/
 tmp/
 .tmp/
+.typos-oxendict-base.json
+.typos-oxendict-base.toml
+*.pyc
+__pycache__/
