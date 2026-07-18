@@ -110,3 +110,19 @@ the published source is newer, regenerates the tracked `typos.toml`, and checks
 the parent and rendered Markdown sources with `typos` 1.48.0. Repository-only
 exceptions belong in `typos.local.toml`; never edit the generated configuration
 by hand.
+
+### Python script shebang
+
+Standalone Python scripts (such as `scripts/generate_typos_config.py`) declare
+their dependencies in a [PEP 723](https://peps.python.org/pep-0723/) inline
+metadata block and must use:
+
+```python
+#!/usr/bin/env -S uv run --script
+```
+
+`uv run --script` reads the adjacent `# /// script` block and installs its
+dependencies before execution. The superficially similar
+`#!/usr/bin/env -S uv run python` shebang skips that step entirely—it runs the
+interpreter directly, so the script fails at import time when a declared
+dependency is not already installed.
