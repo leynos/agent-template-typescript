@@ -10,8 +10,8 @@ ______________________________________________________________________
 ## Why agent-template-typescript?
 
 Starting a TypeScript project means configuring the same tools every time:
-TypeScript compiler options, linting rules, test setup, and build scripts.
-This template provides:
+TypeScript compiler options, linting rules, test setup, and build scripts. This
+template provides:
 
 - **Strict TypeScript**: All the strictness flags enabled by default
 - **Bun runtime**: Fast execution and built-in test runner
@@ -35,12 +35,12 @@ copier copy gh:leynos/agent-template-typescript my-project
 
 Copier will prompt for:
 
-| Variable              | Description                          |
-| --------------------- | ------------------------------------ |
-| `project_name`        | Kebab-case name (e.g. `my-project`)  |
-| `project_title`       | Human-readable title                 |
-| `project_description` | Short project description            |
-| `github_username`     | GitHub username or organization      |
+| Variable              | Description                         |
+| --------------------- | ----------------------------------- |
+| `project_name`        | Kebab-case name (e.g. `my-project`) |
+| `project_title`       | Human-readable title                |
+| `project_description` | Short project description           |
+| `github_username`     | GitHub username or organization     |
 
 ### Run the tests
 
@@ -68,14 +68,14 @@ my-project/
 
 ### Scripts
 
-| Script          | Description                              |
-| --------------- | ---------------------------------------- |
-| `bun build`     | Compile TypeScript to `dist/`            |
-| `bun test`      | Run tests                                |
-| `bun test:all`  | Run lint, type check, and tests          |
-| `bun lint`      | Check code with Biome                    |
-| `bun fmt`       | Format code with Biome                   |
-| `bun check:types` | Type check without emitting            |
+| Script            | Description                     |
+| ----------------- | ------------------------------- |
+| `bun build`       | Compile TypeScript to `dist/`   |
+| `bun test`        | Run tests                       |
+| `bun test:all`    | Run lint, type check, and tests |
+| `bun lint`        | Check code with Biome           |
+| `bun fmt`         | Format code with Biome          |
+| `bun check:types` | Type check without emitting     |
 
 ______________________________________________________________________
 

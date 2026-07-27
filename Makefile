@@ -1,8 +1,11 @@
-.PHONY: check-fmt lint typecheck spelling test help
+.PHONY: check-fmt fmt lint typecheck spelling test help
 
 # Check formatting without making changes
 check-fmt:
 	@echo "No source files to check in template root"
+
+fmt: ## Format Markdown sources
+	mdformat-all
 
 # Run linter
 lint:
