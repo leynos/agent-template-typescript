@@ -20,11 +20,10 @@ fmt: ## Format Markdown sources
 	$(MDLINT) --fix "**/*.md"
 
 # Run linter
-# The repository's Python is the typos roll-out helpers (also copied under
-# template/scripts) and the tests. Interrogate scans each target recursively,
-# subject to its default exclusions.
+# The repository's Python is the tests. Interrogate scans each target
+# recursively, subject to its default exclusions.
 INTERROGATE_VERSION ?= 1.7.0
-INTERROGATE_TARGETS ?= scripts template tests
+INTERROGATE_TARGETS ?= tests
 # Level 2 prints a MISSED row per undocumented definition, which the
 # `interrogate` recipe below looks for: the rounded percentage alone can pass a
 # lone gap.
@@ -57,13 +56,14 @@ typecheck:
 test: ## Run template tests
 	uvx --with pytest-copier --with hypothesis pytest tests/
 
-TYPOS_VERSION ?= 1.48.0
-TYPOS := uv tool run typos@$(TYPOS_VERSION)
+TYPOS_CONFIG_BUILDER_VERSION ?= v0.1.4
+TYPOS_CONFIG_BUILDER = uv tool run --python 3.14 --from \
+	"git+https://github.com/leynos/typos-config-builder.git@$(TYPOS_CONFIG_BUILDER_VERSION)" \
+	typos-config-builder
 
-spelling: ## Enforce en-GB-oxendict spelling in parent and template prose
-	uv run scripts/generate_typos_config.py
-	find . -type f \( -name '*.md' -o -name '*.md.jinja' \) -not -path './.git/*' -print0 | \
-		xargs -0 $(TYPOS) --config typos.toml --force-exclude
+# The gate reads tracked files only; stage new Markdown before expecting it checked.
+spelling: ## Enforce en-GB-oxendict spelling in prose
+	$(TYPOS_CONFIG_BUILDER) gate --repository .
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?##' $(MAKEFILE_LIST) | \

@@ -104,18 +104,19 @@ ______________________________________________________________________
 
 Contributions welcome! Please open an issue or pull request.
 
-Run `make spelling` after changing Markdown or template prose. It refreshes an
-ignored local copy of the shared `leynos` en-GB-oxendict dictionary only when
-the published source is newer, regenerates the tracked `typos.toml`, and checks
-the parent and rendered Markdown sources with `typos` 1.48.0. Repository-only
+Run `make spelling` after changing Markdown or template prose. It runs the
+pinned `typos-config-builder gate` under Python 3.14, which regenerates the
+tracked `typos.toml` from the shared `leynos` en-GB-oxendict dictionary and
+`typos.local.toml`, then checks the tracked parent and template sources. The
+generated project carries the same target. The gate reads tracked files only,
+so stage new Markdown before expecting it to be checked. Repository-only
 exceptions belong in `typos.local.toml`; never edit the generated configuration
 by hand.
 
 ### Python script shebang
 
-Standalone Python scripts (such as `scripts/generate_typos_config.py`) declare
-their dependencies in a [PEP 723](https://peps.python.org/pep-0723/) inline
-metadata block and must use:
+Standalone Python scripts declare their dependencies in a
+[PEP 723](https://peps.python.org/pep-0723/) inline metadata block and must use:
 
 ```python
 #!/usr/bin/env -S uv run --script
