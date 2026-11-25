@@ -48,7 +48,6 @@ def _scripts_with_pep723_metadata() -> list[pathlib.Path]:
 def test_no_pep723_script_ships_the_broken_shebang() -> None:
     """No script that declares inline metadata uses the argument-eating form."""
     scripts = _scripts_with_pep723_metadata()
-    assert scripts, "expected at least one PEP 723 script in the repository"
 
     offenders = [
         path

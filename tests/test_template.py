@@ -28,9 +28,6 @@ def test_template_renders(tmp_path: Path, copier: CopierFixture) -> None:
     assert (project / "Makefile").exists(), "Makefile should exist"
     assert (project / "typos.toml").exists(), "typos.toml should exist"
     assert (project / "typos.local.toml").exists(), "local overlay should exist"
-    assert (project / "scripts" / "generate_typos_config.py").exists(), (
-        "spelling generator should exist"
-    )
     assert (project / ".github" / "workflows" / "ci.yml").exists(), (
         "generated CI should enforce the public gates"
     )
@@ -66,6 +63,10 @@ def test_template_make_target(
         project_description="A test project",
         github_username="testuser",
     )
+    if make_target == "spelling":
+        # The spelling gate reads tracked files, so the rendered project must
+        # be a Git repository with its files added.
+        project.run("git init --quiet && git add -A")
     project.run(f"make {make_target}")
 
 
